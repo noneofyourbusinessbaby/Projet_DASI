@@ -5,14 +5,15 @@
  */
 package fr.insalyon.dasi.test.tp1.dao;
 
-import fr.insalyon.dasi.test.tp1.metier.model.Person;
+import fr.insalyon.dasi.test.tp1.metier.model.Personne;
+
 
 /**
  *
  * @author khoupeurt
  */
-public class PersonDao {
-    public void create(Person person) {
-        JpaUtil.obtenirContextePersistance().persist(person);
+public class PersonneDao {
+    public void create(Personne personne) {
+        JpaUtil.obtenirContextePersistance().persist(personne);
     }
 }

@@ -19,8 +19,8 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table(name = "T_PERSONNE")
-public class Person implements Serializable {
+@Table(name = "T_Eleve")
+public class Eleve implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -48,10 +48,10 @@ public class Person implements Serializable {
     
     
 
-    public Person() {
+    public Eleve() {
     }
 
-    public Person(String nom, String prenom, String password, String mail, String address) {
+    public Personne(String nom, String prenom, String password, String mail, String address) {
         this.nom = nom;
         this.prenom = prenom;
         this.password = password;
