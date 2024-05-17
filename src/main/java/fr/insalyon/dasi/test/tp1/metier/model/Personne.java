@@ -6,6 +6,7 @@
 package fr.insalyon.dasi.test.tp1.metier.model;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -77,4 +78,6 @@ public abstract class Personne implements Serializable {
     public Contact getContact() {
         return contact;
     }
+    
+    public abstract List<Seance> getSeances();
 }

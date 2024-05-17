@@ -8,9 +8,11 @@ package fr.insalyon.dasi.test.tp1.metier.model.personne;
 import fr.insalyon.dasi.test.tp1.metier.model.Contact;
 import fr.insalyon.dasi.test.tp1.metier.model.Login;
 import fr.insalyon.dasi.test.tp1.metier.model.Personne;
+import fr.insalyon.dasi.test.tp1.metier.model.Seance;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -25,6 +27,9 @@ public abstract class Intervenant extends Personne {
     
     @Column(nullable = false)    
     private Integer niveauCompetenceMax;
+    
+    @OneToMany(mappedBy = "intervenant")
+    private List<Seance> seances;
     
     public Intervenant() {
     }
@@ -47,5 +52,10 @@ public abstract class Intervenant extends Personne {
     
     public Integer getNiveauCompetenceMax() {
         return niveauCompetenceMax;
+    }
+
+    @Override
+    public List<Seance> getSeances() {
+        return seances;
     }
 }

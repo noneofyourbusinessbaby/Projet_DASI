@@ -6,8 +6,12 @@
     <class>fr.insalyon.dasi.test.tp1.metier.model.personne.Eleve</class>
     <class>fr.insalyon.dasi.test.tp1.metier.model.personne.Intervenant</class>
     <class>fr.insalyon.dasi.test.tp1.metier.model.Etablissement</class>
+    <class>fr.insalyon.dasi.test.tp1.metier.model.personne.intervenant.IntervenantAutre</class>
+    <class>fr.insalyon.dasi.test.tp1.metier.model.personne.intervenant.IntervenantEnseignant</class>
+    <class>fr.insalyon.dasi.test.tp1.metier.model.personne.intervenant.IntervenantEtudiant</class>
+    <class>fr.insalyon.dasi.test.tp1.metier.model.Seance</class>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/NEWDATABASETEST"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/nadine"/>
       <property name="javax.persistence.jdbc.user" value="nadine"/>
       <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver"/>
       <property name="javax.persistence.jdbc.password" value="nadine"/>
