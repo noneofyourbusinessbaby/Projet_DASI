@@ -16,24 +16,24 @@ import javax.persistence.Embeddable;
 
 @Embeddable
 public class Login implements Serializable {
-       
+
     @Column(nullable = false, unique = true)
     private String email;
-    
+
     @Column(nullable = false)
     private String password;
-    
+
     public Login() {
     }
 
     public Login(String email, String password) {
         this.email = email;
         this.password = password;
-    }   
+    }
 
     @Override
     public String toString() {
-        return this.email;
+        return "Login{" + "email=" + getEmail() + '}';
     }
 
     public String getEmail() {

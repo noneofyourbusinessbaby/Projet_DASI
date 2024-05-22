@@ -18,25 +18,24 @@ import javax.persistence.Entity;
 
 @Entity
 public class IntervenantAutre extends Intervenant {
-   
-    @Column(nullable = false)    
+
+    @Column(nullable = false)
     private String activite;
-    
+
     public IntervenantAutre() {
     }
 
     public IntervenantAutre(String nom, String prenom, Login login, Contact contact,
             Integer niveauDeCompetenceMin, Integer niveauDeCompetenceMax,
-            String activite
-    ) {
+            String activite) {
         super(nom, prenom, login, contact, niveauDeCompetenceMin, niveauDeCompetenceMax);
-        
+
         this.activite = activite;
-    }   
-    
+    }
+
     @Override
     public String toString() {
-        return "IntervenantAutre: "+super.toString()+" Activité "+this.getActivite();
+        return "IntervenantAutre{" + "nom=" + getNom() + ", prenom=" + getPrenom() + ", activite=" + activite + '}';
     }
 
     public String getActivite() {

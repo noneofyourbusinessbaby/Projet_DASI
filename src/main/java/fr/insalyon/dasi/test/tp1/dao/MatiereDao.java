@@ -7,6 +7,7 @@ package fr.insalyon.dasi.test.tp1.dao;
 
 import fr.insalyon.dasi.test.tp1.metier.model.Matiere;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 
 /**
@@ -19,14 +20,18 @@ public class MatiereDao {
 
         em.persist(matiere);
     }
-    
-    public static Matiere findByName(String nom){
+
+    public static Matiere findById(Long id) {
         EntityManager em = JpaUtil.obtenirContextePersistance();
 
-        TypedQuery<Matiere> query = em.createQuery("SELECT M FROM Matiere M WHERE M.nom = :nom", Matiere.class);
+        TypedQuery<Matiere> query = em.createQuery("SELECT M FROM Matiere M WHERE M.id = :id", Matiere.class);
 
-        query.setParameter("nom", nom);
+        query.setParameter("id", id);
 
-        return query.getSingleResult();
+        try {
+            return query.getSingleResult();
+        } catch (NoResultException ex) {
+            return null;
+        }
     }
 }

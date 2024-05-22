@@ -18,7 +18,11 @@ public class SeanceDao {
     public static void create(Seance seance) {
         JpaUtil.obtenirContextePersistance().persist(seance);
     }
-    
+
+    public static void update(Seance seance) {
+        JpaUtil.obtenirContextePersistance().merge(seance);
+    }
+
     public static Seance findById(Long id) {
         EntityManager em = JpaUtil.obtenirContextePersistance();
 
@@ -26,28 +30,41 @@ public class SeanceDao {
 
         query.setParameter("id", id);
 
-        return query.getSingleResult();
+        try {
+            return query.getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
     }
-    
-    public static List<Seance> findHistoriqueParPersonne(Long personneId){
-       EntityManager em = JpaUtil.obtenirContextePersistance();
 
-        TypedQuery<Seance> query = em.createQuery("SELECT S FROM Seance S WHERE (S.intervenant.id = :id OR S.eleve.id = :id) AND S.fin IS NOT NULL", Seance.class);
+    public static List<Seance> findHistoriqueParPersonne(Long personneId) {
+        EntityManager em = JpaUtil.obtenirContextePersistance();
+
+        TypedQuery<Seance> query = em.createQuery(
+                "SELECT S FROM Seance S WHERE (S.intervenant.id = :id OR S.eleve.id = :id) AND S.fin IS NOT NULL",
+                Seance.class);
 
         query.setParameter("id", personneId);
 
-        return query.getResultList();
+        List<Seance> seances = query.getResultList();
+
+        return seances;
     }
-    
-    public static Seance findSeanceEnCours(Long personneId){
+
+    public static Seance findSeanceEnCours(Long personneId) {
         EntityManager em = JpaUtil.obtenirContextePersistance();
 
-        TypedQuery<Seance> query = em.createQuery("SELECT S FROM Seance S WHERE (S.intervenant.id = :id OR S.eleve.id = :id) AND S.fin IS NULL AND S.debut IS NOT NULL", Seance.class);
+        TypedQuery<Seance> query = em.createQuery(
+                "SELECT S FROM Seance S WHERE (S.intervenant.id = :id OR S.eleve.id = :id) AND S.fin IS NULL AND S.debut IS NOT NULL",
+                Seance.class);
         // On ne peut pas avoir plus qu'une séance en cours
 
         query.setParameter("id", personneId);
 
-        return query.getSingleResult();
+        try {
+            return query.getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
     }
-    
 }

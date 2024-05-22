@@ -17,14 +17,19 @@ public class EtablissementDao {
     public static void create(Etablissement etablissement) {
         JpaUtil.obtenirContextePersistance().persist(etablissement);
     }
-    
-    public static Etablissement findByCode(String code){
+
+    public static Etablissement findByCode(String code) {
         EntityManager em = JpaUtil.obtenirContextePersistance();
 
-        TypedQuery<Etablissement> query = em.createQuery("SELECT E FROM Etablissement E WHERE E.code = :code", Etablissement.class);
+        TypedQuery<Etablissement> query = em.createQuery("SELECT E FROM Etablissement E WHERE E.code = :code",
+                Etablissement.class);
 
         query.setParameter("code", code);
 
-        return query.getSingleResult();
+        try {
+            return query.getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
     }
 }

@@ -21,35 +21,38 @@ import javax.persistence.OneToMany;
 
 @Entity
 public abstract class Intervenant extends Personne {
-    
+
     @Column(nullable = false)
     private Integer niveauCompetenceMin;
-    
-    @Column(nullable = false)    
+
+    @Column(nullable = false)
     private Integer niveauCompetenceMax;
-    
+
     @OneToMany(mappedBy = "intervenant")
     private List<Seance> seances;
-    
+
     public Intervenant() {
     }
 
-    public Intervenant(String nom, String prenom, Login login, Contact contact, Integer niveauDeCompetenceMin, Integer niveauDeCompetenceMax) {
+    public Intervenant(String nom, String prenom, Login login, Contact contact, Integer niveauDeCompetenceMin,
+            Integer niveauDeCompetenceMax) {
         super(nom, prenom, login, contact);
-        
+
         this.niveauCompetenceMin = niveauDeCompetenceMin;
         this.niveauCompetenceMax = niveauDeCompetenceMax;
-    }   
+    }
 
     @Override
     public String toString() {
-        return "Intervenant "+super.toString()+" Niveau "+niveauCompetenceMin+" à "+niveauCompetenceMax;
+        return "Intervenant{" + "nom=" + getNom() + ", prenom=" + getPrenom() + ", niveauCompetenceMin="
+                + niveauCompetenceMin
+                + ", niveauCompetenceMax=" + niveauCompetenceMax + '}';
     }
 
     public Integer getNiveauCompetenceMin() {
         return niveauCompetenceMin;
     }
-    
+
     public Integer getNiveauCompetenceMax() {
         return niveauCompetenceMax;
     }

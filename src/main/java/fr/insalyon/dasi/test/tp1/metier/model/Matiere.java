@@ -22,24 +22,24 @@ import javax.persistence.InheritanceType;
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Matiere implements Serializable {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
+
     @Column(nullable = false, unique = true)
     private String nom;
-    
+
     public Matiere() {
     }
 
     public Matiere(String nom) {
         this.nom = nom;
-    }   
+    }
 
     @Override
     public String toString() {
-        return this.nom;
+        return "Matiere{" + "nom=" + getNom() + '}';
     }
 
     public Long getId() {

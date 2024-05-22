@@ -9,13 +9,12 @@ import fr.insalyon.dasi.test.tp1.metier.model.personne.Eleve;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
-
 /**
  *
  * @author khoupeurt
  */
 public class EleveDao {
-    
+
     public static Eleve findById(Long id) {
         EntityManager em = JpaUtil.obtenirContextePersistance();
 
@@ -23,7 +22,11 @@ public class EleveDao {
 
         query.setParameter("id", id);
 
-        return query.getSingleResult();
+        try {
+            return query.getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
     }
-    
+
 }

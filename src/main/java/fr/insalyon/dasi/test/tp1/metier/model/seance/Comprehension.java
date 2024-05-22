@@ -15,7 +15,7 @@ import javax.persistence.Embeddable;
  */
 @Embeddable
 public class Comprehension implements Serializable {
-    
+
     @Column(nullable = false)
     private Integer note;
 
@@ -25,18 +25,18 @@ public class Comprehension implements Serializable {
 
     @Override
     public String toString() {
-        return this.getNote().toString();
+        return "Comprehension{" + "note=" + note + '}';
     }
-    
+
     public Integer getNote() {
         return note;
     }
 
     public void setNote(Integer note) throws Exception {
         if (note < 0 || note > 5) {
-            throw new Exception();
+            throw new Exception("La note doit être comprise entre 0 et 5.");
         }
-        
+
         this.note = note;
     }
 }

@@ -14,8 +14,8 @@ import javax.persistence.Embeddable;
  * @author nhajjhassa
  */
 @Embeddable
-public class Bilan implements Serializable{
-    
+public class Bilan implements Serializable {
+
     @Column(nullable = false)
     private String contenu;
 
@@ -28,12 +28,10 @@ public class Bilan implements Serializable{
 
     @Override
     public String toString() {
-        return getContenu();
+        return "Bilan{" + "contenu=" + contenu + '}';
     }
-    
+
     public String getContenu() {
         return contenu;
     }
-    
-    
 }

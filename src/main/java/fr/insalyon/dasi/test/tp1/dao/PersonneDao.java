@@ -9,7 +9,6 @@ import fr.insalyon.dasi.test.tp1.metier.model.Personne;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
-
 /**
  *
  * @author khoupeurt
@@ -20,8 +19,8 @@ public class PersonneDao {
 
         em.persist(personne);
     }
-    
-    public static Personne findById(Long personneId){
+
+    public static Personne findById(Long personneId) {
         EntityManager em = JpaUtil.obtenirContextePersistance();
 
         TypedQuery<Personne> query = em.createQuery("SELECT P FROM Personne P WHERE P.id = :id", Personne.class);
@@ -30,15 +29,20 @@ public class PersonneDao {
 
         return query.getSingleResult();
     }
-    
+
     public static Personne findByEmail(String email) {
         EntityManager em = JpaUtil.obtenirContextePersistance();
 
-        TypedQuery<Personne> query = em.createQuery("SELECT P FROM Personne P WHERE P.login.email = :email", Personne.class);
+        TypedQuery<Personne> query = em.createQuery("SELECT P FROM Personne P WHERE P.login.email = :email",
+                Personne.class);
 
         query.setParameter("email", email);
 
-        return query.getSingleResult();
+        try {
+            return query.getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
     }
-    
+
 }

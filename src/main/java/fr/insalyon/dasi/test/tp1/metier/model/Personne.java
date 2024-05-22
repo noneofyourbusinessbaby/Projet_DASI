@@ -24,41 +24,39 @@ import javax.persistence.InheritanceType;
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Personne implements Serializable {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
+
     @Column(nullable = false)
     private String nom;
-    
+
     @Column(nullable = false)
     private String prenom;
-    
+
     @Embedded
     Login login;
-    
+
     @Embedded
     Contact contact;
-    
+
     public Personne() {
     }
 
     public Personne(String nom, String prenom, Login login, Contact contact) {
         this.nom = nom;
         this.prenom = prenom;
-        
+
         this.login = login;
         this.contact = contact;
-    }   
+    }
 
     @Override
     public String toString() {
-        return this.getNom()+" "+this.getPrenom();
+        return "Personne{" + "nom=" + getNom() + ", prenom=" + getPrenom() + '}';
     }
 
-    // GET
-    
     public long getId() {
         return id;
     }
@@ -70,14 +68,14 @@ public abstract class Personne implements Serializable {
     public String getPrenom() {
         return prenom;
     }
-    
+
     public Login getLogin() {
         return login;
     }
-    
+
     public Contact getContact() {
         return contact;
     }
-    
+
     public abstract List<Seance> getSeances();
 }

@@ -18,30 +18,29 @@ import javax.persistence.Entity;
 
 @Entity
 public class IntervenantEtudiant extends Intervenant {
-   
-        
-    @Column(nullable = false)    
+
+    @Column(nullable = false)
     private String specialite;
-    
-    @Column(nullable = false)    
+
+    @Column(nullable = false)
     private String universite;
-    
+
     public IntervenantEtudiant() {
     }
 
     public IntervenantEtudiant(String nom, String prenom, Login login, Contact contact,
             Integer niveauDeCompetenceMin, Integer niveauDeCompetenceMax,
-            String universite, String specialite
-    ) {
+            String universite, String specialite) {
         super(nom, prenom, login, contact, niveauDeCompetenceMin, niveauDeCompetenceMax);
-        
+
         this.specialite = specialite;
         this.universite = universite;
-    }   
-    
+    }
+
     @Override
     public String toString() {
-        return "IntervenantEtudiant: "+super.toString()+" Universite "+this.getUniversite()+" Specialité "+getSpecialite();
+        return "IntervenantEtudiant{" + "nom=" + getNom() + ", prenom=" + getPrenom() + ", specialite=" + specialite
+                + ", universite=" + universite + '}';
     }
 
     public String getSpecialite() {

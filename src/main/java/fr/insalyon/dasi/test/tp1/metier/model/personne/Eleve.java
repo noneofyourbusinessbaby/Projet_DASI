@@ -23,26 +23,27 @@ import javax.persistence.OneToOne;
 
 @Entity
 public class Eleve extends Personne {
-    
+
     @Column(nullable = false)
     private Integer classe;
-    
+
     @OneToOne
     private Etablissement etablissement;
-    
+
     @OneToMany(mappedBy = "eleve")
     private List<Seance> seances;
-        
+
     public Eleve() {
     }
 
     public Eleve(String nom, String prenom, Login login, Contact contact) {
         super(nom, prenom, login, contact);
-    }   
+    }
 
     @Override
     public String toString() {
-        return super.toString();
+        return "Eleve{" + "nom=" + getNom() + ", prenom=" + getPrenom() + ", classe=" + classe + ", etablissement="
+                + etablissement + '}';
     }
 
     public Integer getClasse() {
@@ -54,11 +55,11 @@ public class Eleve extends Personne {
     }
 
     public void setEtablissement(Etablissement etablissement, Integer classe) throws Exception {
-        
+
         if (classe < 0 || classe > 6) {
-            throw new Exception();
+            throw new Exception("La classe doit être comprise entre 0 et 6");
         }
-        
+
         this.classe = classe;
         this.etablissement = etablissement;
     }

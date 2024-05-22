@@ -19,23 +19,23 @@ import javax.persistence.Id;
 
 @Entity
 public class Etablissement implements Serializable {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
+
     @Column(nullable = false, unique = true)
     private String nom;
-    
+
     @Column(nullable = false, unique = true)
     private String IPS;
-    
+
     @Column(nullable = false, unique = true)
     private String code;
-    
+
     @Column(nullable = false)
     private String adresse;
-    
+
     public Etablissement() {
     }
 
@@ -44,13 +44,14 @@ public class Etablissement implements Serializable {
         this.IPS = IPS;
         this.code = code;
         this.adresse = adresse;
-    }   
+    }
 
     @Override
     public String toString() {
-        return this.nom;
+        return "Etablissement{" + "nom=" + getNom() + ", IPS=" + getIPS() + ", code=" + getCode() + ", adresse="
+                + getAdresse() + '}';
     }
-    
+
     public long getId() {
         return id;
     }
@@ -69,5 +70,5 @@ public class Etablissement implements Serializable {
 
     public String getIPS() {
         return IPS;
-    } 
+    }
 }

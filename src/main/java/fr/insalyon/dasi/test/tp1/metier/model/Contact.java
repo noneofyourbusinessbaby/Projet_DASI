@@ -16,24 +16,24 @@ import javax.persistence.Embeddable;
 
 @Embeddable
 public class Contact implements Serializable {
-        
+
     @Column(name = "contact_mail", nullable = false, unique = true)
     private String email;
-    
+
     @Column(name = "contact_telephone", nullable = false, unique = true)
     private String telephone;
-    
+
     public Contact() {
     }
 
     public Contact(String email, String telephone) {
         this.email = email;
         this.telephone = telephone;
-    }   
+    }
 
     @Override
     public String toString() {
-        return this.getEmail()+" "+this.getTelephone();
+        return "Contact{" + "email=" + getEmail() + ", telephone=" + getTelephone() + '}';
     }
 
     public String getEmail() {

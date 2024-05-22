@@ -26,57 +26,61 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class Seance implements Serializable {
-    
+
     public enum SeanceStatus {
         EnAttente, EnCours, Terminee
     }
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
+
     @Column(nullable = true)
     private String lien;
-    
+
     @Column(nullable = false)
     private String description;
-    
+
     @ManyToOne(optional = false)
     private Matiere matiere;
-    
+
     @Column()
     private Date debut;
-    
+
     @Column()
     private Date fin;
-    
+
     @Embedded
     private Bilan bilan;
-    
+
     @Embedded
     private Comprehension comprehension;
-    
+
     @ManyToOne(optional = false)
     private Eleve eleve;
-    
+
     @ManyToOne(optional = true)
     private Intervenant intervenant;
-    
+
     public Seance() {
     }
 
     public Seance(Eleve eleve, Matiere matiere, String description) throws Exception {
         this.eleve = eleve;
-        
+
         this.matiere = matiere;
         this.description = description;
-    }   
+    }
 
     @Override
     public String toString() {
-        return "Intervenant: "+this.intervenant.toString()+" Eleve: "+this.eleve.toString()+" Matiere: "+this.matiere.toString()+" Date: "+this.debut;
+        return "Seance{" + "lien=" + getLien() + ", matiere=" + getMatiere() + ", description=" + getDescription()
+                + ", debut=" + getDebut() + ", fin=" + getFin() + ", status=" + getStatus() + ", eleve=" + getEleve()
+                + ", intervenant=" + getIntervenant() + ", comprehension=" + getComprehension() + ", bilan="
+                + getBilan()
+                + '}';
     }
-    
+
     public long getId() {
         return id;
     }
@@ -104,11 +108,10 @@ public class Seance implements Serializable {
     public SeanceStatus getStatus() {
         if (this.debut == null) {
             return SeanceStatus.EnAttente;
-        }
-        else if(this.fin == null) {
+        } else if (this.fin == null) {
             return SeanceStatus.EnCours;
         }
-        
+
         return SeanceStatus.Terminee;
     }
 
@@ -123,34 +126,33 @@ public class Seance implements Serializable {
     public Intervenant getIntervenant() {
         return intervenant;
     }
-    
+
     public void start(Date debut, String lien) throws Exception {
 
-        if (this.debut == null){
+        if (this.debut == null) {
             this.lien = lien;
             this.debut = debut;
+        } else {
+            throw new Exception("La séance a déjà commencé");
         }
-        else {
-            throw new Exception();
-        }    
     }
 
     public Comprehension getComprehension() {
         return comprehension;
     }
-    
+
     public void stop(Date fin, Comprehension comprehension) throws Exception {
-        
+
         if (this.getStatus() == SeanceStatus.Terminee) {
-            throw new Exception();
+            throw new Exception("La séance est déjà terminée");
         }
-        
-        if(debut.after(fin)) {
-            throw new Exception();
+
+        if (debut.after(fin)) {
+            throw new Exception("La date de fin est avant la date de début de la séance");
         }
-        
+
         this.fin = fin;
-        
+
         this.comprehension = comprehension;
     }
 
@@ -159,12 +161,11 @@ public class Seance implements Serializable {
     }
 
     public void setBilan(Bilan bilan) throws Exception {
-        
-        if (this.getStatus() == SeanceStatus.Terminee){
+
+        if (this.getStatus() == SeanceStatus.Terminee) {
             this.bilan = bilan;
+        } else {
+            throw new Exception("La séance n'est pas terminée");
         }
-        else{
-            throw new Exception();
-        }        
     }
 }
