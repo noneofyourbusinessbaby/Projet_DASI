@@ -42,7 +42,7 @@ public class Eleve extends Personne {
 
     @Override
     public String toString() {
-        return this.getNom();
+        return super.toString();
     }
 
     public Integer getClasse() {

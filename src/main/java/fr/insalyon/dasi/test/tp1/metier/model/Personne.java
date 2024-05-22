@@ -54,7 +54,7 @@ public abstract class Personne implements Serializable {
 
     @Override
     public String toString() {
-        return this.nom;
+        return this.getNom()+" "+this.getPrenom();
     }
 
     // GET

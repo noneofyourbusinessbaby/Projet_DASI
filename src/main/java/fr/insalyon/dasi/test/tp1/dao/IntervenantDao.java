@@ -21,8 +21,15 @@ public class IntervenantDao {
     public static Intervenant findByNiveauEtDisponible(Integer niveau) {
         
         EntityManager em = JpaUtil.obtenirContextePersistance();
-
-        TypedQuery<Intervenant> query = em.createQuery("SELECT I FROM Intervenant I WHERE I.niveauCompetenceMin =< :niveau AND I.niveauCompetenceMax = <: niveau AND I.id NOT IN (SELECT S.intervenant.id FROM Seance S, Intevenant I WHERE S.intervenant.id = I.id AND S.debut IS NOT NULL AND S.fin IS NULL)", Intervenant.class);
+        
+        String query_text = 
+                "SELECT I FROM Intervenant I"
+                + " WHERE I.niveauCompetenceMin =< :niveau"
+                + " AND I.niveauCompetenceMax =< :niveau"
+                + " AND I.id NOT IN"
+                + " (SELECT S.intervenant.id FROM Seance S, Intevenant I WHERE S.intervenant.id = I.id AND S.debut IS NOT NULL AND S.fin IS NULL)";
+        
+        TypedQuery<Intervenant> query = em.createQuery(query_text, Intervenant.class);
 
         query.setParameter("niveau", niveau);
 

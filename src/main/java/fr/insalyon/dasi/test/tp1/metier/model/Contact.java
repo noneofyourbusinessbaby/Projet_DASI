@@ -33,7 +33,7 @@ public class Contact implements Serializable {
 
     @Override
     public String toString() {
-        return this.email;
+        return this.getEmail()+" "+this.getTelephone();
     }
 
     public String getEmail() {

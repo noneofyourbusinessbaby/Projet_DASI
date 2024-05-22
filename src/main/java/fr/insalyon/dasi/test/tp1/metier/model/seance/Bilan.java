@@ -25,6 +25,11 @@ public class Bilan implements Serializable{
     public Bilan(String contenu) {
         this.contenu = contenu;
     }
+
+    @Override
+    public String toString() {
+        return getContenu();
+    }
     
     public String getContenu() {
         return contenu;

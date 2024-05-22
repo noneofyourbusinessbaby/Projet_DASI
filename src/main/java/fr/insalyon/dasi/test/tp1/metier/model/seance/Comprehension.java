@@ -23,6 +23,11 @@ public class Comprehension implements Serializable {
         this.note = 0;
     }
 
+    @Override
+    public String toString() {
+        return this.getNote().toString();
+    }
+    
     public Integer getNote() {
         return note;
     }

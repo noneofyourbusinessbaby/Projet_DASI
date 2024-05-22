@@ -36,7 +36,7 @@ public class IntervenantAutre extends Intervenant {
     
     @Override
     public String toString() {
-        return this.getNom();
+        return "IntervenantAutre: "+super.toString()+" Activité "+this.getActivite();
     }
 
     public String getActivite() {

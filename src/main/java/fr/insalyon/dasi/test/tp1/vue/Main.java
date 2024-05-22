@@ -13,7 +13,7 @@ import fr.insalyon.dasi.test.tp1.metier.model.personne.Intervenant;
 import fr.insalyon.dasi.test.tp1.metier.model.personne.intervenant.IntervenantAutre;
 import fr.insalyon.dasi.test.tp1.metier.model.personne.intervenant.IntervenantEnseignant;
 import fr.insalyon.dasi.test.tp1.metier.model.personne.intervenant.IntervenantEtudiant;
-import fr.insalyon.dasi.test.tp1.metier.service.PersonneService;
+import fr.insalyon.dasi.test.tp1.metier.service.Service;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +30,7 @@ public class Main {
         
         JpaUtil.creerFabriquePersistance();
         
-        PersonneService personneService = new PersonneService();
+        Service personneService = new Service();
         
         Eleve eleve = new Eleve("nom", "prenom", new Login("email", "password"), new Contact("email", "phone"));
         
@@ -85,7 +85,7 @@ public class Main {
             
             personneService.login(eleve.getLogin().getEmail(), eleve.getLogin().getPassword());
             
-            personneService.creerSeance(eleve.getId(), seance);
+            personneService.creerSeance(eleve.getId(), "matiere", "description");
         }
         catch (Exception e) {
             e.printStackTrace();

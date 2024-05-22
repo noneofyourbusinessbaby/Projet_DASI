@@ -10,6 +10,7 @@
     <class>fr.insalyon.dasi.test.tp1.metier.model.personne.intervenant.IntervenantEnseignant</class>
     <class>fr.insalyon.dasi.test.tp1.metier.model.personne.intervenant.IntervenantEtudiant</class>
     <class>fr.insalyon.dasi.test.tp1.metier.model.Seance</class>
+    <class>fr.insalyon.dasi.test.tp1.metier.model.Matiere</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/nadine"/>
       <property name="javax.persistence.jdbc.user" value="nadine"/>

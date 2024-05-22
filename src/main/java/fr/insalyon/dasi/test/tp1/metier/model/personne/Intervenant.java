@@ -43,7 +43,7 @@ public abstract class Intervenant extends Personne {
 
     @Override
     public String toString() {
-        return this.getNom();
+        return "Intervenant "+super.toString()+" Niveau "+niveauCompetenceMin+" à "+niveauCompetenceMax;
     }
 
     public Integer getNiveauCompetenceMin() {

@@ -5,7 +5,6 @@
  */
 package fr.insalyon.dasi.test.tp1.dao;
 
-import fr.insalyon.dasi.test.tp1.metier.model.Personne;
 import fr.insalyon.dasi.test.tp1.metier.model.personne.Eleve;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;

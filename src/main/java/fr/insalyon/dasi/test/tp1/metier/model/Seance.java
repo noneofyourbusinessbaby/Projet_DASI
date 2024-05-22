@@ -35,14 +35,14 @@ public class Seance implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String lien;
     
     @Column(nullable = false)
     private String description;
     
-    @Column(nullable = false)
-    private String matiere;
+    @ManyToOne(optional = false)
+    private Matiere matiere;
     
     @Column()
     private Date debut;
@@ -65,17 +65,16 @@ public class Seance implements Serializable {
     public Seance() {
     }
 
-    public Seance(Eleve eleve, String lien, String matiere, String description) throws Exception {
+    public Seance(Eleve eleve, Matiere matiere, String description) throws Exception {
         this.eleve = eleve;
         
-        this.lien = lien;
         this.matiere = matiere;
         this.description = description;
     }   
 
     @Override
     public String toString() {
-        return this.lien;
+        return "Intervenant: "+this.intervenant.toString()+" Eleve: "+this.eleve.toString()+" Matiere: "+this.matiere.toString()+" Date: "+this.debut;
     }
     
     public long getId() {
@@ -86,7 +85,7 @@ public class Seance implements Serializable {
         return lien;
     }
 
-    public String getMatiere() {
+    public Matiere getMatiere() {
         return matiere;
     }
 

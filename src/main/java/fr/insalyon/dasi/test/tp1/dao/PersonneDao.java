@@ -16,7 +16,19 @@ import javax.persistence.TypedQuery;
  */
 public class PersonneDao {
     public static void create(Personne personne) {
-        JpaUtil.obtenirContextePersistance().persist(personne);
+        EntityManager em = JpaUtil.obtenirContextePersistance();
+
+        em.persist(personne);
+    }
+    
+    public static Personne findById(Long personneId){
+        EntityManager em = JpaUtil.obtenirContextePersistance();
+
+        TypedQuery<Personne> query = em.createQuery("SELECT P FROM Personne P WHERE P.id = :id", Personne.class);
+
+        query.setParameter("id", personneId);
+
+        return query.getSingleResult();
     }
     
     public static Personne findByEmail(String email) {
