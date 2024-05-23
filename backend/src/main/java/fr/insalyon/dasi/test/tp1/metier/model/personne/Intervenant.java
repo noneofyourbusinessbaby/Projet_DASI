@@ -20,6 +20,7 @@ import javax.persistence.OneToMany;
  */
 
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class Intervenant extends Personne {
 
     @Column(nullable = false)
