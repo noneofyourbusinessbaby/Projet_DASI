@@ -239,7 +239,7 @@ public class FeaturesService {
                 throw new IllegalArgumentException("Impossible de trouver la séance");
             }
 
-            seance.stop(new Date(Instant.now().getEpochSecond()), comprehension);
+            seance.stop(new Date(Instant.now().getEpochSecond()));
 
             SeanceDao.update(seance);
 
