@@ -252,7 +252,7 @@ public class FeaturesService {
         }
     }
 
-    public static void redigerNoteComprehension(Long seanceId, Integer note) {
+    public static void redigerNoteComprehension(Long seanceId, Integer note) throws Exception {
         JpaUtil.creerContextePersistance();
 
         try {
@@ -264,7 +264,9 @@ public class FeaturesService {
                 throw new IllegalArgumentException("Impossible de trouver la séance");
             }
 
-            seance.setNoteComprehension(note);
+            Comprehension comprehension = new Comprehension(note);
+
+            seance.setNoteComprehension(comprehension);
 
             SeanceDao.update(seance);
 
