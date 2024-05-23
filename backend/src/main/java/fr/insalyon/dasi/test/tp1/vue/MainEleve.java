@@ -25,7 +25,8 @@ public class MainEleve {
             System.out.println("=== Menu Élève ===");
             if (eleve == null) {
                 System.out.println("1. Login");
-                System.out.println("2. Quitter");
+                System.out.println("2. Register");
+                System.out.println("3. Quitter");
             } else {
                 System.out.println("1. Inscrire Élève");
                 System.out.println("2. Terminer Séance");
@@ -46,6 +47,9 @@ public class MainEleve {
                             eleve = login(scanner);
                             break;
                         case 2:
+                            register(scanner);
+                            break;
+                        case 3:
                             exit = true;
                             break;
                         default:
