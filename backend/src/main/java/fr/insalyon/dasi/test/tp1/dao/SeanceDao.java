@@ -43,9 +43,9 @@ public class SeanceDao {
     public static Seance findById(Long id) {
         EntityManager em = JpaUtil.obtenirContextePersistance();
 
-        TypedQuery<Seance> query = em.createQuery("SELECT P FROM Seance P WHERE P.id = :id", Seance.class);
+        TypedQuery<Seance> query = em.createQuery("SELECT P FROM Seance P WHERE P.id = :ID", Seance.class);
 
-        query.setParameter("id", id);
+        query.setParameter("ID", id);
 
         try {
             return query.getSingleResult();
@@ -66,11 +66,11 @@ public class SeanceDao {
 
         TypedQuery<Seance> query = em.createQuery(
                 "SELECT S FROM Seance S" +
-                        " WHERE (S.intervenant.id = :id OR S.eleve.id = :id)" +
+                        " WHERE (S.intervenant.id = :ID OR S.eleve.id = :ID)" +
                         " AND S.fin IS NOT NULL AND S.bilan IS NOT NULL AND S.comprehension IS NOT NULL",
                 Seance.class);
 
-        query.setParameter("id", personneId);
+        query.setParameter("ID", personneId);
 
         List<Seance> seances = query.getResultList();
 

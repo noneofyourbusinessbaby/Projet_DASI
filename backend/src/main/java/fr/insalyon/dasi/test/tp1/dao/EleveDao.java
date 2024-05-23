@@ -24,9 +24,9 @@ public class EleveDao {
     public static Eleve findById(Long id) {
         EntityManager em = JpaUtil.obtenirContextePersistance();
 
-        TypedQuery<Eleve> query = em.createQuery("SELECT P FROM Eleve P WHERE P.id = :id", Eleve.class);
+        TypedQuery<Eleve> query = em.createQuery("SELECT P FROM Eleve P WHERE P.id = :ID", Eleve.class);
 
-        query.setParameter("id", id);
+        query.setParameter("ID", id);
 
         try {
             return query.getSingleResult();

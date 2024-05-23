@@ -36,9 +36,9 @@ public class MatiereDao {
     public static Matiere findById(Long id) {
         EntityManager em = JpaUtil.obtenirContextePersistance();
 
-        TypedQuery<Matiere> query = em.createQuery("SELECT M FROM Matiere M WHERE M.id = :id", Matiere.class);
+        TypedQuery<Matiere> query = em.createQuery("SELECT M FROM Matiere M WHERE M.id = :ID", Matiere.class);
 
-        query.setParameter("id", id);
+        query.setParameter("ID", id);
 
         try {
             return query.getSingleResult();
