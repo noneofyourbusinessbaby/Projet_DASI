@@ -22,16 +22,17 @@ public class IntervenantDao {
      * Recupère un intervenant disponible pour un niveau donné
      * 
      * @param intervenant l'intervenant qui est disponible
+     * @return l'intervenant disponible
      */
     public static Intervenant findByNiveauEtDisponible(Eleve eleve) throws Exception {
 
         EntityManager em = JpaUtil.obtenirContextePersistance();
 
         String query_text = "SELECT I FROM Intervenant I"
-                + " WHERE I.niveauCompetenceMin =< :niveau"
-                + " AND I.niveauCompetenceMax =< :niveau"
+                + " WHERE I.niveauCompetenceMin <= :niveau"
+                + " AND I.niveauCompetenceMax >= :niveau"
                 + " AND I.id NOT IN"
-                + " (SELECT S.intervenant.id FROM Seance S, Intevenant I WHERE S.intervenant.id = I.id AND S.debut IS NOT NULL AND S.fin IS NULL)";
+                + " (SELECT S.intervenant.id FROM Seance S WHERE S.debut IS NOT NULL AND S.fin IS NULL)";
 
         TypedQuery<Intervenant> query = em.createQuery(query_text, Intervenant.class);
 
@@ -43,5 +44,4 @@ public class IntervenantDao {
             return null;
         }
     }
-
 }
