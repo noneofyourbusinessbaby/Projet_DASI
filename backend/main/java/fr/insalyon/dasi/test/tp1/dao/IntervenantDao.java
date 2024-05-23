@@ -18,7 +18,12 @@ import javax.persistence.TypedQuery;
  */
 public class IntervenantDao {
 
-    public static Intervenant findByNiveauEtDisponible(Integer niveau) throws Exception {
+    /**
+     * Recupère un intervenant disponible pour un niveau donné
+     * 
+     * @param intervenant l'intervenant qui est disponible
+     */
+    public static Intervenant findByNiveauEtDisponible(Eleve eleve) throws Exception {
 
         EntityManager em = JpaUtil.obtenirContextePersistance();
 
@@ -30,7 +35,7 @@ public class IntervenantDao {
 
         TypedQuery<Intervenant> query = em.createQuery(query_text, Intervenant.class);
 
-        query.setParameter("niveau", niveau);
+        query.setParameter("niveau", eleve.getClasse());
 
         try {
             return query.getSingleResult();

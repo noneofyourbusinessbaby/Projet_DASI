@@ -16,10 +16,11 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class Bilan implements Serializable {
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String contenu;
 
     public Bilan() {
+        this.contenu = null;
     }
 
     public Bilan(String contenu) {

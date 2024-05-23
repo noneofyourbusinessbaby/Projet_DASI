@@ -14,10 +14,22 @@ import javax.persistence.TypedQuery;
  * @author nhajjhassa
  */
 public class EtablissementDao {
+
+    /**
+     * Crée un établissement
+     * 
+     * @param etablissement l'établissement à créer
+     */
     public static void create(Etablissement etablissement) {
         JpaUtil.obtenirContextePersistance().persist(etablissement);
     }
 
+    /**
+     * Récupère un établissement par son code
+     * 
+     * @param code le code de l'établissement
+     * @return l'établissement correspondant au code
+     */
     public static Etablissement findByCode(String code) {
         EntityManager em = JpaUtil.obtenirContextePersistance();
 

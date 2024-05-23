@@ -15,6 +15,12 @@ import javax.persistence.TypedQuery;
  */
 public class EleveDao {
 
+    /**
+     * Récupère un élève par son id
+     * 
+     * @param id l'id de l'élève
+     * @return l'élève correspondant à l'id
+     */
     public static Eleve findById(Long id) {
         EntityManager em = JpaUtil.obtenirContextePersistance();
 

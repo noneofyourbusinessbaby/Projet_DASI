@@ -15,12 +15,24 @@ import javax.persistence.TypedQuery;
  * @author nhajjhassa
  */
 public class MatiereDao {
+
+    /**
+     * Crée une matière
+     * 
+     * @param matiere la matière à créer
+     */
     public static void create(Matiere matiere) {
         EntityManager em = JpaUtil.obtenirContextePersistance();
 
         em.persist(matiere);
     }
 
+    /**
+     * Recupère une matière par son id
+     * 
+     * @param id      l'id de la matière
+     * @param matiere la matière correspondante à l'id
+     */
     public static Matiere findById(Long id) {
         EntityManager em = JpaUtil.obtenirContextePersistance();
 

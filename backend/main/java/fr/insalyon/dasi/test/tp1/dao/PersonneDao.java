@@ -14,12 +14,25 @@ import javax.persistence.TypedQuery;
  * @author khoupeurt
  */
 public class PersonneDao {
+
+    /**
+     * Crée une personne
+     * 
+     * @param personne la personne à créer. Une personne peut être un élève ou un
+     *                 intervenant.
+     */
     public static void create(Personne personne) {
         EntityManager em = JpaUtil.obtenirContextePersistance();
 
         em.persist(personne);
     }
 
+    /**
+     * Recupère une personne par son id
+     * 
+     * @param personneId l'id de la personne
+     * @return la personne correspondante à l'id
+     */
     public static Personne findById(Long personneId) {
         EntityManager em = JpaUtil.obtenirContextePersistance();
 
@@ -30,6 +43,12 @@ public class PersonneDao {
         return query.getSingleResult();
     }
 
+    /**
+     * Recupère une personne par son email
+     * 
+     * @param email l'email de la personne
+     * @return la personne correspondante à l'email
+     */
     public static Personne findByEmail(String email) {
         EntityManager em = JpaUtil.obtenirContextePersistance();
 
@@ -44,5 +63,4 @@ public class PersonneDao {
             return null;
         }
     }
-
 }

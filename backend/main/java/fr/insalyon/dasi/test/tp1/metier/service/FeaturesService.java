@@ -183,18 +183,16 @@ public class FeaturesService {
                 throw new Exception("Impossible de trouver l'eleve");
             }
 
-            Integer classe = eleve.getClasse();
+            Intervenant intervenant = IntervenantDao.findByNiveauEtDisponible(eleve);
+
+            if (intervenant == null) {
+                throw new Exception("Impossible de trouver un intervenant disponible");
+            }
 
             Matiere matiere = MatiereDao.findById(idMatiere);
 
             if (matiere == null) {
                 throw new Exception("Impossible de trouver la matiere");
-            }
-
-            Intervenant intervenant = IntervenantDao.findByNiveauEtDisponible(classe);
-
-            if (intervenant == null) {
-                throw new Exception("Impossible de trouver un intervenant disponible");
             }
 
             String lien = "https://insa-lyon.fr";
@@ -227,17 +225,12 @@ public class FeaturesService {
      * Permet de terminer une séance
      * 
      * @param seanceId Id de la séance
-     * @param note     Note de la séance
      * @throws Exception Si la séance n'existe pas
      */
-    public static void terminerSeance(Long seanceId, Integer note) throws Exception {
+    public static void terminerSeance(Long seanceId) throws Exception {
         JpaUtil.creerContextePersistance();
 
         try {
-            Comprehension comprehension = new Comprehension();
-
-            comprehension.setNote(note);
-
             JpaUtil.ouvrirTransaction();
 
             Seance seance = SeanceDao.findById(seanceId);
@@ -247,6 +240,31 @@ public class FeaturesService {
             }
 
             seance.stop(new Date(Instant.now().getEpochSecond()), comprehension);
+
+            SeanceDao.update(seance);
+
+            JpaUtil.validerTransaction();
+        } catch (Exception ex) {
+            JpaUtil.annulerTransaction();
+            throw ex;
+        } finally {
+            JpaUtil.fermerContextePersistance();
+        }
+    }
+
+    public static void redigerNoteComprehension(Long seanceId, Integer note) {
+        JpaUtil.creerContextePersistance();
+
+        try {
+            JpaUtil.ouvrirTransaction();
+
+            Seance seance = SeanceDao.findById(seanceId);
+
+            if (seance == null) {
+                throw new Exception("Impossible de trouver la séance");
+            }
+
+            seance.setNoteComprehension(note);
 
             SeanceDao.update(seance);
 

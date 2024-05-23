@@ -63,6 +63,10 @@ public class Seance implements Serializable {
     private Intervenant intervenant;
 
     public Seance() {
+        this.intervenant = null;
+
+        this.bilan = null;
+        this.comprehension = null;
     }
 
     public Seance(Eleve eleve, Matiere matiere, String description) throws Exception {
@@ -120,7 +124,11 @@ public class Seance implements Serializable {
     }
 
     public void setIntervenant(Intervenant intervenant) {
-        this.intervenant = intervenant;
+        if (this.intervenant = null) {
+            this.intervenant = intervenant;
+        } else {
+            throw new Exception("L'intervenant a déjà été renseigné");
+        }
     }
 
     public Intervenant getIntervenant() {
@@ -128,7 +136,6 @@ public class Seance implements Serializable {
     }
 
     public void start(Date debut, String lien) throws Exception {
-
         if (this.debut == null) {
             this.lien = lien;
             this.debut = debut;
@@ -141,8 +148,7 @@ public class Seance implements Serializable {
         return comprehension;
     }
 
-    public void stop(Date fin, Comprehension comprehension) throws Exception {
-
+    public void stop(Date fin) throws Exception {
         if (this.getStatus() == SeanceStatus.Terminee) {
             throw new Exception("La séance est déjà terminée");
         }
@@ -152,8 +158,6 @@ public class Seance implements Serializable {
         }
 
         this.fin = fin;
-
-        this.comprehension = comprehension;
     }
 
     public Bilan getBilan() {
@@ -161,9 +165,25 @@ public class Seance implements Serializable {
     }
 
     public void setBilan(Bilan bilan) throws Exception {
-
         if (this.getStatus() == SeanceStatus.Terminee) {
-            this.bilan = bilan;
+            if (this.getBilan() == null) {
+                this.bilan = bilan;
+            } else {
+                throw new Exception("Le bilan a déjà été renseigné");
+            }
+
+        } else {
+            throw new Exception("La séance n'est pas terminée");
+        }
+    }
+
+    public void setComprehension(Comprehension comprehension) throws Exception {
+        if (this.getStatus() == SeanceStatus.Terminee) {
+            if (this.getComprehension() == null) {
+                this.comprehension = comprehension;
+            } else {
+                throw new Exception("La note de compréhension a déjà été renseignée");
+            }
         } else {
             throw new Exception("La séance n'est pas terminée");
         }
