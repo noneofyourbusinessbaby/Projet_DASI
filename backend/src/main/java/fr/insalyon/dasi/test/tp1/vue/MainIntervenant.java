@@ -5,6 +5,9 @@
  */
 package fr.insalyon.dasi.test.tp1.vue;
 
+import fr.insalyon.dasi.test.tp1.metier.model.Personne;
+import fr.insalyon.dasi.test.tp1.metier.model.Seance;
+import fr.insalyon.dasi.test.tp1.metier.service.FeaturesService;
 import java.util.List;
 
 import java.util.Scanner;
@@ -17,33 +20,29 @@ public class MainIntervenant {
 
         while (!exit) {
             System.out.println("=== Menu Intervenant ===");
-            System.out.println("1. Inscrire Intervenant");
-            System.out.println("2. Rédiger Bilan");
-            System.out.println("3. Récupérer Historique Séances");
-            System.out.println("4. Récupérer Profil Personne");
-            System.out.println("5. Récupérer Séance en Cours");
-            System.out.println("6. Quitter");
+            System.out.println("1. Rédiger Bilan");
+            System.out.println("2. Récupérer Historique Séances");
+            System.out.println("3. Récupérer Profil Personne");
+            System.out.println("4. Récupérer Séance en Cours");
+            System.out.println("5. Quitter");
 
             int choix = Integer.parseInt(scanner.nextLine());
 
             try {
                 switch (choix) {
                     case 1:
-                        inscrireIntervenant(scanner);
-                        break;
-                    case 2:
                         redigerBilan(scanner);
                         break;
-                    case 3:
+                    case 2:
                         recupererHistoriqueSeances(scanner);
                         break;
-                    case 4:
+                    case 3:
                         recupererProfilePersonne(scanner);
                         break;
-                    case 5:
+                    case 4:
                         recupererSeanceEnCours(scanner);
                         break;
-                    case 6:
+                    case 5:
                         exit = true;
                         break;
                     default:
@@ -55,22 +54,6 @@ public class MainIntervenant {
         }
 
         scanner.close();
-    }
-
-    private static void inscrireIntervenant(Scanner scanner) throws Exception {
-        System.out.print("Veuillez entrer le nom de l'intervenant: ");
-        String nom = scanner.nextLine();
-        System.out.print("Veuillez entrer l'email de l'intervenant: ");
-        String email = scanner.nextLine();
-        // Ajouter ici les autres détails nécessaires
-
-        Intervenant intervenant = new Intervenant();
-        intervenant.setNom(nom);
-        intervenant.getContact().setEmail(email);
-        // Ajouter ici les autres détails nécessaires à l'intervenant
-
-        FeaturesService.inscrireIntervenant(intervenant);
-        System.out.println("Intervenant inscrit avec succès.");
     }
 
     private static void redigerBilan(Scanner scanner) throws Exception {
@@ -103,6 +86,7 @@ public class MainIntervenant {
         Long intervenantId = Long.parseLong(scanner.nextLine());
 
         Personne profil = FeaturesService.recupererProfilePersonne(intervenantId);
+
         System.out.println(profil);
     }
 
