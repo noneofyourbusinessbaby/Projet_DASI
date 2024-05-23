@@ -5,7 +5,7 @@
  */
 package fr.insalyon.dasi.test.tp1.vue;
 
-import fr.insalyon.dasi.test.tp1.metier.dao.JpaUtil;
+import fr.insalyon.dasi.test.tp1.dao.JpaUtil;
 import fr.insalyon.dasi.test.tp1.metier.model.Personne;
 import fr.insalyon.dasi.test.tp1.metier.model.Seance;
 import fr.insalyon.dasi.test.tp1.metier.service.FeaturesService;
