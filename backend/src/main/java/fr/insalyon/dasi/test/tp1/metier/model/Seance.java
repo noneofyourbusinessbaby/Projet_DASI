@@ -69,7 +69,7 @@ public class Seance implements Serializable {
         this.comprehension = null;
     }
 
-    public Seance(Eleve eleve, Matiere matiere, String description) throws Exception {
+    public Seance(Eleve eleve, Matiere matiere, String description) {
         this.eleve = eleve;
 
         this.matiere = matiere;
@@ -123,7 +123,7 @@ public class Seance implements Serializable {
         return eleve;
     }
 
-    public void setIntervenant(Intervenant intervenant) {
+    public void setIntervenant(Intervenant intervenant) throws Exception {
         if (this.intervenant = null) {
             this.intervenant = intervenant;
         } else {
@@ -154,7 +154,7 @@ public class Seance implements Serializable {
         }
 
         if (debut.after(fin)) {
-            throw new Exception("La date de fin est avant la date de début de la séance");
+            throw new IllegalArgumentException("La date de fin est avant la date de début de la séance");
         }
 
         this.fin = fin;

@@ -66,7 +66,7 @@ public class FeaturesService {
 
         } catch (NonUniqueResultException e) {
             JpaUtil.annulerTransaction();
-            throw new Exception("Le mail est deja utilisé");
+            throw new IllegalArgumentException("Le mail est deja utilisé");
         } catch (Exception e) {
             JpaUtil.annulerTransaction();
             throw e;
@@ -102,7 +102,7 @@ public class FeaturesService {
                 List<String> result = api.getInformationCollege(codeEtablissement);
 
                 if (result == null) {
-                    throw new Exception();
+                    throw new IllegalArgumentException("Le code établissement est invalide");
                 }
 
                 String ips = result.get(8);
@@ -153,7 +153,7 @@ public class FeaturesService {
             JpaUtil.fermerContextePersistance();
         }
 
-        throw new Exception("Mot de passe ou email invalide");
+        throw new IllegalArgumentException("Mot de passe ou email invalide");
     }
 
     /**
@@ -180,7 +180,7 @@ public class FeaturesService {
             Eleve eleve = EleveDao.findById(idEleve);
 
             if (eleve == null) {
-                throw new Exception("Impossible de trouver l'eleve");
+                throw new IllegalArgumentException("Impossible de trouver l'eleve");
             }
 
             Intervenant intervenant = IntervenantDao.findByNiveauEtDisponible(eleve);
@@ -192,7 +192,7 @@ public class FeaturesService {
             Matiere matiere = MatiereDao.findById(idMatiere);
 
             if (matiere == null) {
-                throw new Exception("Impossible de trouver la matiere");
+                throw new IllegalArgumentException("Impossible de trouver la matiere");
             }
 
             String lien = "https://insa-lyon.fr";
@@ -236,7 +236,7 @@ public class FeaturesService {
             Seance seance = SeanceDao.findById(seanceId);
 
             if (seance == null) {
-                throw new Exception("Impossible de trouver la séance");
+                throw new IllegalArgumentException("Impossible de trouver la séance");
             }
 
             seance.stop(new Date(Instant.now().getEpochSecond()), comprehension);
@@ -261,7 +261,7 @@ public class FeaturesService {
             Seance seance = SeanceDao.findById(seanceId);
 
             if (seance == null) {
-                throw new Exception("Impossible de trouver la séance");
+                throw new IllegalArgumentException("Impossible de trouver la séance");
             }
 
             seance.setNoteComprehension(note);
@@ -294,7 +294,7 @@ public class FeaturesService {
             Seance seance = SeanceDao.findById(seanceId);
 
             if (seance == null) {
-                throw new Exception("Impossible de trouver la séance");
+                throw new IllegalArgumentException("Impossible de trouver la séance");
             }
 
             Bilan bilan = new Bilan(contenu);

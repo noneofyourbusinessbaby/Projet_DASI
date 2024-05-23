@@ -38,6 +38,19 @@ public abstract class Intervenant extends Personne {
             Integer niveauDeCompetenceMax) {
         super(nom, prenom, login, contact);
 
+        if (niveauDeCompetenceMin > niveauDeCompetenceMax) {
+            throw new IllegalArgumentException(
+                    "Le niveau de compétence minimum doit être inférieur au niveau de compétence maximum.");
+        }
+
+        if (niveauDeCompetenceMin < 0 || niveauDeCompetenceMax < 0) {
+            throw new IllegalArgumentException("Les niveaux de compétence doivent être positifs.");
+        }
+
+        if (niveauDeCompetenceMin > 6 || niveauDeCompetenceMax > 6) {
+            throw new IllegalArgumentException("Les niveaux de compétence doivent être inférieurs ou égaux à 5.");
+        }
+
         this.niveauCompetenceMin = niveauDeCompetenceMin;
         this.niveauCompetenceMax = niveauDeCompetenceMax;
     }

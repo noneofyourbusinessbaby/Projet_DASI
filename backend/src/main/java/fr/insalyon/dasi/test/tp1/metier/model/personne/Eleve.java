@@ -57,7 +57,7 @@ public class Eleve extends Personne {
     public void setEtablissement(Etablissement etablissement, Integer classe) throws Exception {
 
         if (classe < 0 || classe > 6) {
-            throw new Exception("La classe doit être comprise entre 0 et 6");
+            throw new IllegalArgumentException("La classe doit être comprise entre 0 et 6");
         }
 
         this.classe = classe;
