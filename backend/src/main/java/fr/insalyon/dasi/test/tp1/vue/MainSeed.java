@@ -8,11 +8,16 @@ package fr.insalyon.dasi.test.tp1.vue;
 import java.util.List;
 
 import fr.insalyon.dasi.test.tp1.dao.JpaUtil;
+import fr.insalyon.dasi.test.tp1.dao.MatiereDao;
+import fr.insalyon.dasi.test.tp1.metier.model.Contact;
+import fr.insalyon.dasi.test.tp1.metier.model.Login;
 import fr.insalyon.dasi.test.tp1.metier.model.Matiere;
 import fr.insalyon.dasi.test.tp1.metier.model.Seance;
 import fr.insalyon.dasi.test.tp1.metier.model.personne.Eleve;
 import fr.insalyon.dasi.test.tp1.metier.model.personne.Intervenant;
-import fr.insalyon.dasi.test.tp1.metier.service.SeedService;
+import fr.insalyon.dasi.test.tp1.metier.model.personne.intervenant.IntervenantEnseignant;
+import fr.insalyon.dasi.test.tp1.metier.service.FeaturesService;
+import java.util.ArrayList;
 
 /**
  *
@@ -27,32 +32,32 @@ public class MainSeed {
     public static void main(String[] args) throws Exception {
         JpaUtil.creerFabriquePersistance();
 
-        List<Matiere> matieres = SeedService.seedMatieres(10L);
+        List<Matiere> matieres = seedMatieres(10L);
 
         matieres.forEach(matiere -> {
             System.out.println(matiere);
         });
 
-        List<Intervenant> intervenants = SeedService.seedIntervenants(10L);
+        List<Intervenant> intervenants = seedIntervenants(10L);
 
         intervenants.forEach(intervenant -> {
             System.out.println(intervenant);
         });
 
-        List<Eleve> eleves = SeedService.seedEleves(10L);
+        List<Eleve> eleves = seedEleves(10L);
 
         eleves.forEach(eleve -> {
             System.out.println(eleve);
         });
 
-        List<Seance> seances = SeedService.seedSeances(eleves, matieres);
+        List<Seance> seances = seedSeances(eleves, matieres);
 
         seances.forEach(seance -> {
             System.out.println(seance);
         });
     }
 
-    public static List<Eleve> seedEleves(Long c) throws Exception {
+    private static List<Eleve> seedEleves(Long c) throws Exception {
 
         List<Eleve> eleves = new ArrayList<>();
 
@@ -70,7 +75,7 @@ public class MainSeed {
         return eleves;
     }
 
-    public static List<Intervenant> seedIntervenants(Long c) throws Exception {
+    private static List<Intervenant> seedIntervenants(Long c) throws Exception {
 
         List<Intervenant> intervenants = new ArrayList<>();
 
@@ -90,7 +95,7 @@ public class MainSeed {
         return intervenants;
     }
 
-    public static List<Matiere> seedMatieres(Long c) throws Exception {
+    private static List<Matiere> seedMatieres(Long c) throws Exception {
 
         List<Matiere> matieres = new ArrayList<>();
 
@@ -105,7 +110,7 @@ public class MainSeed {
         return matieres;
     }
 
-    public static List<Seance> seedSeances(List<Eleve> eleves, List<Matiere> matieres) throws Exception {
+    private static List<Seance> seedSeances(List<Eleve> eleves, List<Matiere> matieres) throws Exception {
 
         List<Seance> seances = new ArrayList<>();
 
