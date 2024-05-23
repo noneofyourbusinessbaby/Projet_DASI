@@ -32,7 +32,7 @@ public class MainEleve {
                 System.out.println("2. Register");
                 System.out.println("3. Quitter");
             } else {
-                System.out.println("1. Inscrire Élève");
+                System.out.println("1. Plannifier Nouvelle Séance");
                 System.out.println("2. Terminer Séance");
                 System.out.println("3. Rédiger Note de Compréhension");
                 System.out.println("4. Récupérer Historique Séances");
@@ -62,7 +62,7 @@ public class MainEleve {
                 } else {
                     switch (choix) {
                         case 1:
-                            inscrireEleve(scanner);
+                            plannifierNouvelleSeance(scanner, eleve);
                             break;
                         case 2:
                             terminerSeance(scanner, eleve);
@@ -128,10 +128,8 @@ public class MainEleve {
 
         Contact contact = new Contact(email, phone);
 
-        System.out.print("Veuillez entrer le code établissement du collége: ");
+        System.out.print("Veuillez entrer le code établissement du collége (0692155T): ");
         String code = scanner.nextLine();
-
-        code = "0692155T"; // TODO: remove
 
         System.out.print("Veuillez entrer le numéro de classe au collége (1-6): ");
         Integer classe = Integer.parseInt(scanner.nextLine());
@@ -144,6 +142,28 @@ public class MainEleve {
         Eleve eleve = new Eleve(nom, prenom, login, contact);
 
         FeaturesService.inscrireEleve(eleve, code, classe);
+    }
+
+    private static void plannifierNouvelleSeance(Scanner scanner, Personne eleve) throws Exception {
+        System.out.print("Veuillez entrer la description de la séance: ");
+        String description = scanner.nextLine();
+
+        List<Matiere> matieres = FeaturesService.recupererMatieres();
+
+        matieres.forEach(matiere -> {
+            System.out.println(matiere);
+        });
+
+        System.out.print("Veuillez entrer l'id de la matière: ");
+        Long idMatiere = Long.parseLong(scanner.nextLine());
+
+        Seance seance = FeaturesService.plannifierNouvelleSeance(eleve.getId(), idMatiere, description);
+
+        if (seance != null) {
+            System.out.println("Séance plannifiée avec succès.");
+        } else {
+            System.out.println("Impossible de plannifier la séance.");
+        }
     }
 
     private static void terminerSeance(Scanner scanner, Personne eleve) throws Exception {

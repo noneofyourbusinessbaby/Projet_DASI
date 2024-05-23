@@ -6,6 +6,9 @@
 package fr.insalyon.dasi.test.tp1.dao;
 
 import fr.insalyon.dasi.test.tp1.metier.model.Matiere;
+
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
@@ -45,5 +48,19 @@ public class MatiereDao {
         } catch (NoResultException ex) {
             return null;
         }
+    }
+
+    /**
+     * Recupère toutes les matières
+     * 
+     * @return la liste de toutes les matières
+     */
+
+    public static List<Matiere> findAll() {
+        EntityManager em = JpaUtil.obtenirContextePersistance();
+
+        TypedQuery<Matiere> query = em.createQuery("SELECT M FROM Matiere M", Matiere.class);
+
+        return query.getResultList();
     }
 }

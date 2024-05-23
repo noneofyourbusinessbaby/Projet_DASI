@@ -8,6 +8,7 @@ package fr.insalyon.dasi.test.tp1.dao;
 import fr.insalyon.dasi.test.tp1.metier.model.Personne;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import org.apache.derby.shared.common.error.DerbySQLIntegrityConstraintViolationException;
 
 /**
  *
@@ -21,10 +22,14 @@ public class PersonneDao {
      * @param personne la personne à créer. Une personne peut être un élève ou un
      *                 intervenant.
      */
-    public static void create(Personne personne) {
+    public static void create(Personne personne) throws Exception {
         EntityManager em = JpaUtil.obtenirContextePersistance();
 
-        em.persist(personne);
+        try {
+            em.persist(personne);
+        } catch (Exception e) {
+            throw new Exception("Impossible de crée la personne");
+        }
     }
 
     /**
@@ -36,9 +41,9 @@ public class PersonneDao {
     public static Personne findById(Long personneId) {
         EntityManager em = JpaUtil.obtenirContextePersistance();
 
-        TypedQuery<Personne> query = em.createQuery("SELECT P FROM Personne P WHERE P.id = :id", Personne.class);
+        TypedQuery<Personne> query = em.createQuery("SELECT p FROM Personne p WHERE p.id = :ID", Personne.class);
 
-        query.setParameter("id", personneId);
+        query.setParameter("ID", personneId);
 
         return query.getSingleResult();
     }

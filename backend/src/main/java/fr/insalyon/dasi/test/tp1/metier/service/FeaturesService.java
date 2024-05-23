@@ -395,4 +395,19 @@ public class FeaturesService {
             JpaUtil.fermerContextePersistance();
         }
     }
+
+    /**
+     * Permet de récupérer la liste des matières
+     * 
+     * @return La liste des matières
+     */
+    public static List<Matiere> recupererMatieres() throws Exception {
+        JpaUtil.creerContextePersistance();
+
+        try {
+            return MatiereDao.findAll();
+        } finally {
+            JpaUtil.fermerContextePersistance();
+        }
+    }
 }
