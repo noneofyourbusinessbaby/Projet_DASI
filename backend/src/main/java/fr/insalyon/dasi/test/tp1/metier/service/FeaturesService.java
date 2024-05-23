@@ -78,9 +78,9 @@ public class FeaturesService {
     /**
      * Permet d'inscrire un élève
      * 
-     * @param eleve
-     * @param codeEtablissement
-     * @param classe
+     * @param eleve             Eleve
+     * @param codeEtablissement Code de l'établissement
+     * @param classe            Classe de l'élève
      * @throws Exception Si l'établissement n'existe pas, si l'email est déjà
      *                   utilisé
      */
@@ -135,7 +135,7 @@ public class FeaturesService {
     /**
      * Permet de connecter une personne
      * 
-     * @param email    Email
+     * @param email    Email unique
      * @param password Mot de passe
      * @return La personne connectée
      * @throws Exception Si le mot de passe ou l'email est invalide
@@ -157,15 +157,18 @@ public class FeaturesService {
     }
 
     /**
-     * Crée une séance pour un élève
+     * Crée une séance pour un élève.
+     * La séance est créée avec un intervenant est disponible pour le niveau de
+     * l'élève.
      * 
      * @param idEleve     Id de l'élève
      * @param matiereNom  Nom de la matière
      * @param description Description de la séance
      * @return La séance créée
      * @throws Exception Si l'élève a déjà une séance en cours, si l'élève ou la
-     *                   matière n'existe pas, ou si aucun intervenant n'est
-     *                   disponible
+     *                   matière n'existe pas, si aucun intervenant n'est
+     *                   disponible, ou si la séance précédente n'est n'a pas de
+     *                   note ni de bilan
      */
     public static Seance plannifierNouvelleSeance(Long idEleve, Long idMatiere, String description) throws Exception {
         JpaUtil.creerContextePersistance();
@@ -222,10 +225,11 @@ public class FeaturesService {
     }
 
     /**
-     * Permet de terminer une séance
+     * Permet de terminer une séance.
+     * Seul l'éleve peut terminer une séance
      * 
      * @param seanceId Id de la séance
-     * @throws Exception Si la séance n'existe pas
+     * @throws Exception Si la séance n'existe pas ou si la séance est déjà terminée
      */
     public static void terminerSeance(Long seanceId) throws Exception {
         JpaUtil.creerContextePersistance();
@@ -252,6 +256,16 @@ public class FeaturesService {
         }
     }
 
+    /**
+     * Permet de rédiger une note de compréhension pour une séance terminée.
+     * Seul l'eleve peut rédiger une note de compréhension
+     * 
+     * @param seanceId Id de la séance
+     * @param note     Note de compréhension. Doit être entre 0 et 5
+     * @throws Exception Si la séance n'existe pas, si la séance n'est pas
+     *                   terminée, si la note est invalide ou si la note a déjà été
+     *                   rédigée
+     */
     public static void redigerNoteComprehension(Long seanceId, Integer note) throws Exception {
         JpaUtil.creerContextePersistance();
 
@@ -280,12 +294,14 @@ public class FeaturesService {
     }
 
     /**
-     * Permet de rédiger un bilan pour une séance
+     * Permet de rédiger un bilan pour une séance terminée.
+     * Seul l'intervenant peut rédiger un bilan.
      * 
      * @param seanceId Id de la séance
      * @param contenu  Contenu du bilan
-     * @throws Exception Si la séance n'existe pas ou si la séance n'est pas
-     *                   terminée
+     * @throws Exception Si la séance n'existe pas, si la séance n'est pas
+     *                   terminée, si le bilan a déjà été rédigé
+     * 
      */
     public static void redigerBilan(Long seanceId, String contenu) throws Exception {
         JpaUtil.creerContextePersistance();
