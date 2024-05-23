@@ -266,7 +266,7 @@ public class FeaturesService {
 
             Comprehension comprehension = new Comprehension(note);
 
-            seance.setNoteComprehension(comprehension);
+            seance.setComprehension(comprehension);
 
             SeanceDao.update(seance);
 

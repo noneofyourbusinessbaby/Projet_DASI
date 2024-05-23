@@ -124,7 +124,7 @@ public class Seance implements Serializable {
     }
 
     public void setIntervenant(Intervenant intervenant) throws Exception {
-        if (this.intervenant = null) {
+        if (this.intervenant == null) {
             this.intervenant = intervenant;
         } else {
             throw new Exception("L'intervenant a déjà été renseigné");
