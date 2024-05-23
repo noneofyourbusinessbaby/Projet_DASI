@@ -131,6 +131,8 @@ public class MainEleve {
         System.out.print("Veuillez entrer le code établissement du collége: ");
         String code = scanner.nextLine();
 
+        code = "0692155T"; // TODO: remove
+
         System.out.print("Veuillez entrer le numéro de classe au collége (1-6): ");
         Integer classe = Integer.parseInt(scanner.nextLine());
 
