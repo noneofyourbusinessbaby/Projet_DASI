@@ -91,12 +91,9 @@ public class FeaturesService {
 
             JpaUtil.ouvrirTransaction();
 
-            Etablissement etablissement;
+            Etablissement etablissement = EtablissementDao.findByCode(codeEtablissement);
 
-            try {
-                etablissement = EtablissementDao.findByCode(codeEtablissement);
-            } catch (NoResultException e) {
-
+            if (etablissement == null) {
                 EducNetApi api = new EducNetApi();
 
                 List<String> result = api.getInformationCollege(codeEtablissement);
