@@ -7,6 +7,7 @@ package fr.insalyon.dasi.test.tp1.vue;
 
 import java.util.List;
 
+import fr.insalyon.dasi.test.tp1.metier.dao.JpaUtil;
 import fr.insalyon.dasi.test.tp1.metier.model.Matiere;
 import fr.insalyon.dasi.test.tp1.metier.model.Seance;
 import fr.insalyon.dasi.test.tp1.metier.model.personne.Eleve;
@@ -24,6 +25,7 @@ public class MainInit {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
+        JpaUtil.creerFabriquePersistance();
 
         List<Matiere> matieres = SeedService.seedMatieres(10L);
 

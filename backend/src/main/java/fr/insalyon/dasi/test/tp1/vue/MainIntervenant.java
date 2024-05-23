@@ -1,5 +1,11 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package fr.insalyon.dasi.test.tp1.vue;
 
+import fr.insalyon.dasi.test.tp1.metier.dao.JpaUtil;
 import fr.insalyon.dasi.test.tp1.metier.model.Personne;
 import fr.insalyon.dasi.test.tp1.metier.model.Seance;
 import fr.insalyon.dasi.test.tp1.metier.service.FeaturesService;
@@ -9,7 +15,10 @@ import java.util.Scanner;
 public class MainIntervenant {
 
     public static void main(String[] args) {
+        JpaUtil.creerFabriquePersistance();
+
         Scanner scanner = new Scanner(System.in);
+
         boolean exit = false;
         Personne intervenant = null;
 
