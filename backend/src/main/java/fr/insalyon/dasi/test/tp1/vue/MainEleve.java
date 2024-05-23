@@ -5,8 +5,11 @@
  */
 package fr.insalyon.dasi.test.tp1.vue;
 
+import fr.insalyon.dasi.test.tp1.metier.model.Contact;
+import fr.insalyon.dasi.test.tp1.metier.model.Login;
 import fr.insalyon.dasi.test.tp1.metier.model.Personne;
 import fr.insalyon.dasi.test.tp1.metier.model.Seance;
+import fr.insalyon.dasi.test.tp1.metier.model.personne.Eleve;
 import fr.insalyon.dasi.test.tp1.metier.service.FeaturesService;
 import java.util.List;
 import java.util.Scanner;
@@ -103,9 +106,34 @@ public class MainEleve {
     }
 
     private static void inscrireEleve(Scanner scanner) throws Exception {
-        // Implémentation de l'inscription d'un élève
-        // Cette méthode semble être destinée à un administrateur ou un intervenant, pas
-        // à un élève
+        System.out.print("Veuillez entrer le nom: ");
+        String nom = scanner.nextLine();
+
+        System.out.print("Veuillez entrer le prenom: ");
+        String prenom = scanner.nextLine();
+
+        System.out.print("Veuillez entrer le email: ");
+        String email = scanner.nextLine();
+
+        System.out.print("Veuillez entrer le numéro de téléphone: ");
+        String phone = scanner.nextLine();
+
+        Contact contact = new Contact(email, phone);
+
+        System.out.print("Veuillez entrer le code établissement du collége: ");
+        String code = scanner.nextLine();
+
+        System.out.print("Veuillez entrer le numéro de classe au collége (1-6): ");
+        Integer classe = Integer.parseInt(scanner.nextLine());
+
+        System.out.print("Veuillez entrer le password: ");
+        String password = scanner.nextLine();
+
+        Login login = new Login(email, password);
+
+        Eleve eleve = new Eleve(nom, prenom, login, contact);
+
+        FeaturesService.inscrireEleve(eleve, code, classe);
     }
 
     private static void terminerSeance(Scanner scanner, Personne eleve) throws Exception {
