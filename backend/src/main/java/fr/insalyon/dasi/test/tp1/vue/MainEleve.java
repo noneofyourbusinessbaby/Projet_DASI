@@ -47,7 +47,7 @@ public class MainEleve {
                             eleve = login(scanner);
                             break;
                         case 2:
-                            register(scanner);
+                            inscrireEleve(scanner);
                             break;
                         case 3:
                             exit = true;
