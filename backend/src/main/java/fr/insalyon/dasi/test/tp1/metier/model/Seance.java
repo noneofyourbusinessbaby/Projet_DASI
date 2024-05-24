@@ -61,6 +61,8 @@ public class Seance implements Serializable {
 
     @ManyToOne(optional = true)
     private Intervenant intervenant;
+    
+    private Long duree;
 
     public Seance() {
         this.intervenant = null;
@@ -163,7 +165,15 @@ public class Seance implements Serializable {
     public Bilan getBilan() {
         return bilan;
     }
+    
+    public Long getDuree(){
+        return this.duree;
+    }
 
+    public void setDuree(Long duree) {
+        this.duree = duree;
+    }
+    
     public void setBilan(Bilan bilan) throws Exception {
         if (this.getStatus() == SeanceStatus.Terminee) {
             if (this.getBilan() == null) {

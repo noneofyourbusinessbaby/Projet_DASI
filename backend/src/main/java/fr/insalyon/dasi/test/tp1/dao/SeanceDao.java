@@ -90,7 +90,7 @@ public class SeanceDao {
 
         TypedQuery<Seance> query = em.createQuery(
                 "SELECT S FROM Seance S" +
-                        " WHERE (S.intervenant.id = :id OR S.eleve.id = :id)" +
+                        " WHERE (S.intervenant.id = :id OR S.eleve.id = :ID)" +
                         " AND S.fin IS NULL AND S.debut IS NOT NULL" +
                         " AND S.bilan IS NULL OR S.comprehension IS NULL",
                 Seance.class);
@@ -103,4 +103,43 @@ public class SeanceDao {
             return null;
         }
     }
+    
+    public static Integer statsDureeMoyenneSeances(Long idIntervenant) {
+        
+        EntityManager em = JpaUtil.obtenirContextePersistance();
+
+        TypedQuery<Integer> query = em.createQuery(
+                "SELECT AVG(S.duree) FROM Seance S" +
+                        " WHERE (S.intervenant.id = :ID)" +
+                        " AND S.debut IS NOT NULL AND S.fin IS NOT NULL" + 
+                        " GROUP BY S.intervenant.id" , Integer.class);
+
+        query.setParameter("id", idIntervenant);
+
+        try {
+            return query.getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    
+    public static Integer statsNombreInterventions(Long idIntervenant) {
+        
+        EntityManager em = JpaUtil.obtenirContextePersistance();
+
+        TypedQuery<Integer> query = em.createQuery(
+                "SELECT COUNT(S.intervenant.id) FROM Seance S" +
+                        " WHERE (S.intervenant.id = :ID)" +
+                        " AND S.debut IS NOT NULL AND S.fin IS NOT NULL", Integer.class);
+
+        query.setParameter("id", idIntervenant);
+
+        try {
+            return query.getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+        
 }

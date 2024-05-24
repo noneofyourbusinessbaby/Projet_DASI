@@ -5,6 +5,7 @@
  */
 package fr.insalyon.dasi.test.tp1.metier.service;
 
+import com.google.maps.model.LatLng;
 import fr.insalyon.dasi.test.tp1.dao.EleveDao;
 import fr.insalyon.dasi.test.tp1.dao.EtablissementDao;
 import fr.insalyon.dasi.test.tp1.dao.IntervenantDao;
@@ -21,12 +22,14 @@ import fr.insalyon.dasi.test.tp1.metier.model.personne.Intervenant;
 import fr.insalyon.dasi.test.tp1.metier.model.seance.Bilan;
 import fr.insalyon.dasi.test.tp1.metier.model.seance.Comprehension;
 import fr.insalyon.dasi.test.tp1.metier.utils.EducNetApi;
+import fr.insalyon.dasi.test.tp1.metier.utils.GeoNetApi;
 import fr.insalyon.dasi.test.tp1.metier.utils.Messaging;
 import java.sql.Date;
+import java.time.Duration;
 import java.util.List;
 import java.time.Instant;
-import javax.persistence.NoResultException;
 import javax.persistence.NonUniqueResultException;
+
 
 /**
  *
@@ -107,8 +110,10 @@ public class FeaturesService {
                 String nomCommune = result.get(4);
 
                 String adresseEtablissement = nom + ", " + nomCommune;
-
-                etablissement = new Etablissement(nom, ips, codeEtablissement, adresseEtablissement);
+                
+                LatLng coordsEtablissement = GeoNetApi.getLatLng(adresseEtablissement);
+                
+                etablissement = new Etablissement(nom, ips, codeEtablissement, adresseEtablissement, coordsEtablissement);
 
                 EtablissementDao.create(etablissement);
             }
@@ -241,7 +246,12 @@ public class FeaturesService {
             }
 
             seance.stop(new Date(Instant.now().getEpochSecond()));
-
+            
+            // long diff = ChronoUnit.SECONDS.between(now, tenSecondsLater);
+            Long diff = Duration.between(seance.getDebut().toInstant(), seance.getFin().toInstant()).toMinutes();
+            
+            seance.setDuree(diff);
+            
             SeanceDao.update(seance);
 
             JpaUtil.validerTransaction();
@@ -401,7 +411,7 @@ public class FeaturesService {
      * 
      * @return La liste des matières
      */
-    public static List<Matiere> recupererMatieres() throws Exception {
+    public static List<Matiere> recupererMatieres() {
         JpaUtil.creerContextePersistance();
 
         try {
@@ -410,4 +420,37 @@ public class FeaturesService {
             JpaUtil.fermerContextePersistance();
         }
     }
+    
+    public static Integer recupererDureeSeancesMoyenne(Long intervenantId){
+        JpaUtil.creerContextePersistance();
+
+        try {
+            return SeanceDao.statsDureeMoyenneSeances(intervenantId);
+        } finally {
+            JpaUtil.fermerContextePersistance();
+        }
+    }
+    
+    public static Integer recupererNbSeances(Long intervenantId){
+        JpaUtil.creerContextePersistance();
+
+        try {
+            return SeanceDao.statsNombreInterventions(intervenantId);
+        } finally {
+            JpaUtil.fermerContextePersistance();
+        }
+    }
+    
+    // pour les stats
+    public List<Etablissement> recupererEtablissements(){
+        JpaUtil.creerContextePersistance();
+
+        try {
+            return EtablissementDao.findAll();
+        } finally {
+            JpaUtil.fermerContextePersistance();
+        }
+    }
+    
+
 }

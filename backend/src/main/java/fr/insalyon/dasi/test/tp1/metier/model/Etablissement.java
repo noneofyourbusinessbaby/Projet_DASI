@@ -5,6 +5,7 @@
  */
 package fr.insalyon.dasi.test.tp1.metier.model;
 
+import com.google.maps.model.LatLng;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -35,15 +36,22 @@ public class Etablissement implements Serializable {
 
     @Column(nullable = false)
     private String adresse;
+    
+    private Double lat;
+    
+    private Double lng;
 
     public Etablissement() {
     }
 
-    public Etablissement(String nom, String IPS, String code, String adresse) {
+    public Etablissement(String nom, String IPS, String code, String adresse, LatLng coord) {
         this.nom = nom;
         this.IPS = IPS;
         this.code = code;
         this.adresse = adresse;
+        
+        this.lat = coord.lat;
+        this.lng = coord.lng;
     }
 
     @Override
@@ -70,5 +78,11 @@ public class Etablissement implements Serializable {
 
     public String getIPS() {
         return IPS;
+    }
+    public Double getLat(){
+        return lat;
+    }
+    public Double getLng(){
+        return lng;
     }
 }

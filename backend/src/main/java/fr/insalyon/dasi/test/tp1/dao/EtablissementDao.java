@@ -6,6 +6,7 @@
 package fr.insalyon.dasi.test.tp1.dao;
 
 import fr.insalyon.dasi.test.tp1.metier.model.Etablissement;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
@@ -40,6 +41,20 @@ public class EtablissementDao {
 
         try {
             return query.getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    
+    public static List<Etablissement> findAll(){
+        
+        EntityManager em = JpaUtil.obtenirContextePersistance();
+
+        TypedQuery<Etablissement> query = em.createQuery("SELECT E FROM Etablissement E",
+                Etablissement.class);
+
+        try {
+            return query.getResultList();
         } catch (Exception e) {
             return null;
         }
