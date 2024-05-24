@@ -16,6 +16,7 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class Bilan implements Serializable {
 
+    @Column(nullable = true)
     private String contenu;
 
     public Bilan() {

@@ -16,6 +16,7 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class Comprehension implements Serializable {
 
+    @Column(nullable = true)
     private Integer note;
 
     public Comprehension() {

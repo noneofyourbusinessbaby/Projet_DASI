@@ -15,32 +15,32 @@ import javax.persistence.Embeddable;
  */
 
 @Embeddable
-public class Contact implements Serializable {
+public class Login implements Serializable {
 
-    @Column(name = "contact_mail", nullable = false)
+    @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(name = "contact_telephone", nullable = false)
-    private String telephone;
+    @Column(nullable = false)
+    private String password;
 
-    public Contact() {
+    public Login() {
     }
 
-    public Contact(String email, String telephone) {
+    public Login(String email, String password) {
         this.email = email;
-        this.telephone = telephone;
+        this.password = password;
     }
 
     @Override
     public String toString() {
-        return "Contact{" + "email=" + getEmail() + ", telephone=" + getTelephone() + '}';
+        return "Login{" + "email=" + getEmail() + '}';
     }
 
     public String getEmail() {
         return email;
     }
 
-    public String getTelephone() {
-        return telephone;
+    public String getPassword() {
+        return password;
     }
 }

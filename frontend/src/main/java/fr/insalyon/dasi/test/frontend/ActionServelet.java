@@ -5,6 +5,9 @@
  */
 package fr.insalyon.dasi.test.frontend;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.Instant;
@@ -32,22 +35,23 @@ public class ActionServelet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
         
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ActionServelet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ActionServelet at " + request.getContextPath() + "</h1>");
-            out.println("<p>Hello !  "+Instant.now()+" </p>");
-            out.println(request.getQueryString());
-            out.println("</body>");
-            out.println("</html>"); 
+        response.setContentType("application/json");     
+        
+        String todo = request.getParameter("todo");
+        
+        switch (todo){
+            
+            case "connecter" : {
+                new AuthentifierUtilisateurAction("achanger").execute(request);
+                new ProfilUtilisateurSerialisation().appliquer(request, response);
+                break;
+            }
+            default : {
+                break;
+            }
         }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

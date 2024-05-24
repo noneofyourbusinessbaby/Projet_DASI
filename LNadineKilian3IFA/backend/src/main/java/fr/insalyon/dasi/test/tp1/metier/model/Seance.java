@@ -10,7 +10,7 @@ import fr.insalyon.dasi.test.tp1.metier.model.personne.Intervenant;
 import fr.insalyon.dasi.test.tp1.metier.model.seance.Bilan;
 import fr.insalyon.dasi.test.tp1.metier.model.seance.Comprehension;
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Date;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -18,8 +18,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  *
@@ -29,7 +27,7 @@ import javax.persistence.TemporalType;
 @Entity
 public class Seance implements Serializable {
 
-    public static enum SeanceStatus {
+    public enum SeanceStatus {
         EnAttente, EnCours, Terminee
     }
 
@@ -37,17 +35,19 @@ public class Seance implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column()
     private String lien;
 
+    @Column()
     private String description;
 
     @ManyToOne()
     private Matiere matiere;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    @Column()
     private Date debut;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    @Column()
     private Date fin;
 
     @Embedded
@@ -56,15 +56,19 @@ public class Seance implements Serializable {
     @Embedded
     private Comprehension comprehension;
 
-    @ManyToOne()
+    @ManyToOne(optional = false)
     private Eleve eleve;
 
-    @ManyToOne()
+    @ManyToOne(optional = true)
     private Intervenant intervenant;
     
     private Long duree;
 
     public Seance() {
+        this.intervenant = null;
+
+        this.bilan = null;
+        this.comprehension = null;
     }
 
     public Seance(Eleve eleve, Matiere matiere, String description) {
