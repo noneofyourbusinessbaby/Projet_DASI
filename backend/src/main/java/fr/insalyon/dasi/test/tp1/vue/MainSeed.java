@@ -96,16 +96,30 @@ public class MainSeed {
     }
 
     private static List<Matiere> seedMatieres(Long c) throws Exception {
+        
+        JpaUtil.creerContextePersistance();
 
         List<Matiere> matieres = new ArrayList<>();
+        
+        try {
+            JpaUtil.ouvrirTransaction();
+            for (int i = 0; i < c; i++) {
+                Matiere matiere = new Matiere("matiere" + i);
 
-        for (int i = 0; i < c; i++) {
-            Matiere matiere = new Matiere("matiere" + i);
+                MatiereDao.create(matiere);
 
-            MatiereDao.create(matiere);
-
-            matieres.add(matiere);
+                matieres.add(matiere);
+            }   
+            
+            JpaUtil.validerTransaction(); 
         }
+        catch(Exception ex) {  
+            JpaUtil.annulerTransaction();
+        }
+        finally {
+            JpaUtil.fermerContextePersistance();
+        }
+
 
         return matieres;
     }
